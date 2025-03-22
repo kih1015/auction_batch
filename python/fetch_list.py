@@ -19,7 +19,7 @@ def fetch_auction_data(cortAuctnSrchCondCd, bid_start_days, bid_end_days):
     bid_end_date = get_date_str(bid_end_days)
 
     while True:
-        time.sleep(1)  # 요청 간격 조정
+        time.sleep(0.5)  # 요청 간격 조정
         logging.info(
             f"[{cortAuctnSrchCondCd}] {bid_start_date} ~ {bid_end_date} (페이지 {page_no}) 요청 중...")
 
@@ -56,8 +56,9 @@ def fetch_auction_data(cortAuctnSrchCondCd, bid_start_days, bid_end_days):
                 if item["lclsUtilCd"] == "30000" or item["lclsUtilCd"] == "40000":
                     logging.info("자동차 및 기타 매물: 조회하지 않음")
                     continue
-                # ✅ 물건 상세 정보 추가 요청 및 저장
-                fetch_auction_detail(item["srnSaNo"], item["maemulSer"], item["boCd"])
+
+                # ✅ 물건 상세 정보 추가 요청 및 저장 (기일 정보 전달)
+                fetch_auction_detail(item["srnSaNo"], item["maemulSer"], item["boCd"], item.get("maeGiil", ""))
                 # ✅ 물건 현황조사서 정보 추가 요청 및 저장
                 fetch_curst_exmndc(item["srnSaNo"], item["boCd"])
 
