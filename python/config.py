@@ -51,6 +51,7 @@ def get_parameter(param_name, with_decryption=True):
 
 # 파라미터 스토어에서 민감한 정보 가져오기
 MONGO_URI = "mongodb://localhost:27017/"
+SERVER_MONGO_URI = get_parameter("/MONGO_URL") or MONGO_URI
 KAKAO_REST_API_KEY = get_parameter("/KAKAO_REST_API_KEY")
 
 # 나머지 설정
